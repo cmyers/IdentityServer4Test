@@ -15,11 +15,12 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApplicationInsightsTelemetry();
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "https://localhost:44327";
+                    options.Authority = "https://localhost:44311";
                     options.RequireHttpsMetadata = false;
 
                     options.Audience = "api1";

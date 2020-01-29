@@ -16,7 +16,7 @@ namespace Client
             // discover endpoints from metadata
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:44327");
+            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:44311");
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);
@@ -46,7 +46,7 @@ namespace Client
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await apiClient.GetAsync("https://localhost:44340/identity");
+            var response = await apiClient.GetAsync("https://localhost:44301/identity");
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
