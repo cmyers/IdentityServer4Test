@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Api
 {
@@ -17,13 +13,15 @@ namespace Api
             services.AddControllers();
             services.AddApplicationInsightsTelemetry();
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.Authority = "https://localhost:44311";
-                    options.RequireHttpsMetadata = false;
-
-                    options.Audience = "api1";
+                    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+                    options.TokenValidationParameters.ValidAudiences = new List<string>
+                        {
+                            "api1"
+                        };
                 });
         }
 
